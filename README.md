@@ -9,7 +9,7 @@ These use cases demonstrate how Splunk can be leveraged for both proactive threa
 ## 🔍 Projects
 
 ### 🛡️ Brute Force Login Detection (Splunk)
-📘 [Read the Report](./investigations/alert-report_bruteforce-192.168.1.103.md)
+📝 [Read the Report](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/BruteForceDetectionSplunk/investigations/alert-report_bruteforce-192.168.1.103.md)
 
 Detects repeated failed login attempts from the same IP address, indicating potential brute force activity. Includes:
 
@@ -21,7 +21,7 @@ Detects repeated failed login attempts from the same IP address, indicating pote
 ---
 
 ### 🎣 Phishing Email Detection (Splunk)
-📘 [Read the Report](./investigations/alert-report_phishing-email-spoof.md)
+📝 [Read the Report](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/PhishingEmailAnalysisSplunk/investigations/alert-investigation_phishing_failed-auth_20250705.md)
 
 Detects phishing emails failing SPF, DKIM, and DMARC checks, combined with risk indicators such as suspicious URLs and malware attachments. Includes:
 
