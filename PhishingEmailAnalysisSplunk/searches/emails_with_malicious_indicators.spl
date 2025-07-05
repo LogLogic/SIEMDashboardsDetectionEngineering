@@ -1,0 +1,3 @@
+# Detect emails containing malicious URLs, IPs, or attachments
+index=phishing sourcetype=phishing_email_logs
+| where url_reputation="malicious" OR ip_reputation="malicious" OR attachment_hash_vt="positive"
