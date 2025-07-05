@@ -11,10 +11,11 @@
 
 ## 1. Alert Summary
 
-- **Triggered At:** 2025-07-05 09:30 AM  
-- **Search Logic:**
+**Triggered At:** 2025-07-05 09:30 AM  
+**Search Logic:**
 
 index=phishing sourcetype=phishing_email_logs
+
 | where spf_result="fail" AND dkim_result="fail" AND dmarc_result="fail"
 
 ## Condition Met:
