@@ -80,7 +80,7 @@ _Example: Full view of all 4 panels displayed in the Classic Dashboard_
   Trigger Type: Once per search  
   Action: Send email or add to Triggered Alerts
 
-![Alert Screenshot](screenshots/alert_triggered.png)  
+![Alert Screenshot](screenshots/alert_triggered_phishing_fail_auth.png)  
 _Example: Screenshot from Triggered Alerts showing a fired alert event_  
 
 ---
