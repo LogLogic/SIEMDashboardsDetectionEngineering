@@ -127,4 +127,4 @@ index=bruteforce sourcetype=custom_windows_auth
 
 This project also includes a simulated SOC-style alert triage write-up based on a triggered brute force detection.
 
-[→ View Alert Report]()
+[→ View Alert Report](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/BruteForceDetectionSplunk/investigations/alert-report_bruteforce-192.168.1.103.md)
