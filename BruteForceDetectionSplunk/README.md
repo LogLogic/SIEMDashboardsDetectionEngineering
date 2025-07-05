@@ -79,7 +79,7 @@ index=bruteforce sourcetype=custom_windows_auth
 
 | timechart span=1h count as "Failed Logins"
 
-## 2. Top 10 Source IPs with Failed Logins
+### 2. Top 10 Source IPs with Failed Logins
 
 index=bruteforce sourcetype=custom_windows_auth
 
@@ -93,7 +93,7 @@ index=bruteforce sourcetype=custom_windows_auth
 
 | head 10
 
-## 3. Top 10 Usernames with Failed Logins
+### 3. Top 10 Usernames with Failed Logins
 
 index=bruteforce sourcetype=custom_windows_auth
 
@@ -107,7 +107,7 @@ index=bruteforce sourcetype=custom_windows_auth
 
 | head 10
 
-## 4. Alert SPL - Brute Force Detection
+### 4. Alert SPL - Brute Force Detection
 
 index=bruteforce sourcetype=custom_windows_auth
 
