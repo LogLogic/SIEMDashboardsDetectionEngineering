@@ -90,16 +90,19 @@ _Example: Screenshot from Triggered Alerts showing a fired alert event_
 **Emails failing all auth checks:**  
 
 index=phishing sourcetype=phishing_email_logs
+
 | where spf_result="fail" AND dkim_result="fail" AND dmarc_result="fail"
 
 **Emails with URL domain mismatch:**
 
 index=phishing sourcetype=phishing_email_logs
+
 | where url_domain_mismatch="TRUE"
 
 **Emails with malicious URLs or attachments:**
 
 index=phishing sourcetype=phishing_email_logs
+
 | where url_reputation="malicious" OR ip_reputation="malicious" OR attachment_hash_vt="positive"
 
 ---
