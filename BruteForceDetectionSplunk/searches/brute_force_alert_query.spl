@@ -1,0 +1,6 @@
+index=bruteforce sourcetype=custom_windows_auth
+| where like(_raw, "%FAILURE%")
+| rex field=_raw "(?<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}),(?<host>[^,]+),(?<user>[^,]+),(?<status>[^,]+),(?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| bin _time span=10m
+| stats count by _time, src_ip
+| where count >= 5
