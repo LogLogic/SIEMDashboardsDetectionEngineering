@@ -54,7 +54,8 @@ Risk Score: 90
 
 Priority: High
 
-Log sample taken from Search view.
+![Log sample](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/PhishingEmailAnalysisSplunk/screenshots/spf_dkim_dmarc_fail.png)
+Example: Log sample taken from Search view.
 
 ## 3. Triage Analysis
 
