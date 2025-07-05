@@ -68,7 +68,8 @@ Log sample taken from Search view.
 | Threat Reputation       | Positive                                            | Confirmed via VirusTotal         |
 
 ## 4. Verdict
-Is this phishing activity? Yes
+**Is this phishing activity? Yes**
+
 The email uses a spoofed sender, URL mismatch, and malware-laced attachment.
 High confidence phishing attempt targeting users under the guise of a security update.
 
