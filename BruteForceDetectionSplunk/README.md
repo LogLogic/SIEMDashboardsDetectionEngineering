@@ -89,10 +89,15 @@ index=bruteforce sourcetype=custom_windows_auth
 ## 3. Top 10 Usernames with Failed Logins
 
 index=bruteforce sourcetype=custom_windows_auth
+
 | where like(_raw, "%FAILURE%")
+
 | rex field=_raw "(?<user>[^,]+),(?<status>FAILURE)"
+
 | stats count by user
+
 | sort -count
+
 | head 10
 
 ## 4. Alert SPL - Brute Force Detection
