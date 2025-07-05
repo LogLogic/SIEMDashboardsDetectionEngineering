@@ -1,0 +1,3 @@
+index=bruteforce sourcetype=custom_windows_auth
+| where like(_raw, "%FAILURE%")
+| timechart span=1h count as "Failed Logins"
