@@ -15,32 +15,43 @@
 **Search Logic:**
 
 index=bruteforce sourcetype=custom_windows_auth
+
 | where like(_raw, "%FAILURE%")
+
 | rex field=_raw "(?<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}),(?<host>[^,]+),(?<user>[^,]+),(?<status>[^,]+),(?<src_ip>\d+\.\d+\.\d+\.\d+)"
+
 | bin _time span=10m
+
 | stats count by _time, src_ip
+
 | where count >= 5
 
 ## Condition Met:
 
 5 failed login attempts from IP 192.168.1.103 within 10 minutes.
+
 ![Triggered alert showing source IP and event count.](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/BruteForceDetectionSplunk/screenshots/alert_triggered.png)
 
 ## 2. Log Sample – Failed Logins
 
 2025-07-01 09:00:12,HOST2,admin,FAILURE,192.168.1.103
+
 2025-07-01 09:00:15,HOST2,admin,FAILURE,192.168.1.103
+
 2025-07-01 09:00:20,HOST2,admin,FAILURE,192.168.1.103
+
 2025-07-01 09:00:25,HOST2,admin,FAILURE,192.168.1.103
+
 2025-07-01 09:00:30,HOST2,admin,FAILURE,192.168.1.103
 
 Username Targeted: admin
 Host: HOST2
 Status: All login attempts failed
 Outcome: No successful login from this IP
+
 ![Log sample from Search view.](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/BruteForceDetectionSplunk/screenshots/failed_logins_raw.png)
 
-## 3. 🔎 Triage Analysis
+## 3. Triage Analysis
 
 | Indicator        | Value           | Notes                          |
 |------------------|------------------|--------------------------------|
@@ -54,9 +65,11 @@ Outcome: No successful login from this IP
 ## 4. Verdict
 
 ### Is this brute force activity? Yes
+
 Pattern matches automated brute force: rapid failures, repeated user, high-value account.
 
 ## 5. Recommended Actions
+
 Block or monitor IP 192.168.1.103
 
 Check for corresponding successful login
