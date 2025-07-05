@@ -1,0 +1,3 @@
+# Detect emails with URL domain mismatches
+index=phishing sourcetype=phishing_email_logs
+| where url_domain_mismatch="TRUE"
