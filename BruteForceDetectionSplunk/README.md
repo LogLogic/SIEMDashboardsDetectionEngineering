@@ -74,16 +74,23 @@ _Example: Screenshot from Triggered Alerts showing a fired alert event_
 ### 1. Total Failed Logins Over Time
 
 index=bruteforce sourcetype=custom_windows_auth
+
 | where like(_raw, "%FAILURE%")
+
 | timechart span=1h count as "Failed Logins"
 
 ## 2. Top 10 Source IPs with Failed Logins
 
 index=bruteforce sourcetype=custom_windows_auth
+
 | where like(_raw, "%FAILURE%")
+
 | rex field=_raw "(?<src_ip>\d+\.\d+\.\d+\.\d+)"
+
 | stats count by src_ip
+
 | sort -count
+
 | head 10
 
 ## 3. Top 10 Usernames with Failed Logins
@@ -103,14 +110,21 @@ index=bruteforce sourcetype=custom_windows_auth
 ## 4. Alert SPL - Brute Force Detection
 
 index=bruteforce sourcetype=custom_windows_auth
+
 | where like(_raw, "%FAILURE%")
+
 | rex field=_raw "(?<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}),(?<host>[^,]+),(?<user>[^,]+),(?<status>[^,]+),(?<src_ip>\d+\.\d+\.\d+\.\d+)"
+
 | bin _time span=10m
+
 | stats count by _time, src_ip
+
 | where count >= 5
 
 ---
 
 ### Alert Investigation Report:
+
 This project also includes a simulated SOC-style alert triage write-up based on a triggered brute force detection.
+
 [→ View Alert Report]()
