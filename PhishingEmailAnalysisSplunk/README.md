@@ -111,7 +111,5 @@ index=phishing sourcetype=phishing_email_logs
 
 This project includes a simulated SOC-style alert triage report based on triggered phishing email alerts.
 
-[→ View Alert Report](#)  
-*Link to the detailed phishing alert triage write-up (to be added)*
-
+[→ View Alert Report](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/PhishingEmailAnalysisSplunk/investigations/alert-investigation_phishing_failed-auth_20250705.md)  
 
