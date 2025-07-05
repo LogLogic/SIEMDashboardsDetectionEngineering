@@ -1,0 +1,6 @@
+index=bruteforce sourcetype=custom_windows_auth
+| where like(_raw, "%FAILURE%")
+| rex field=_raw "(?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| stats count by src_ip
+| sort -count
+| head 10
