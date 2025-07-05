@@ -45,8 +45,11 @@ index=bruteforce sourcetype=custom_windows_auth
 2025-07-01 09:00:30,HOST2,admin,FAILURE,192.168.1.103
 
 Username Targeted: admin
+
 Host: HOST2
+
 Status: All login attempts failed
+
 Outcome: No successful login from this IP
 
 ![Log sample from Search view.](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/BruteForceDetectionSplunk/screenshots/failed_logins_raw.png)
