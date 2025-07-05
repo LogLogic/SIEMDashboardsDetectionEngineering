@@ -1,0 +1,4 @@
+# Detect emails failing SPF, DKIM, and DMARC authentication checks
+index=phishing sourcetype=phishing_email_logs
+| where spf_result="fail" AND dkim_result="fail" AND dmarc_result="fail"
+
