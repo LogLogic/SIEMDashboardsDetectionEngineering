@@ -26,27 +26,34 @@ Example alert condition: logins from locations not seen before or impossible tra
 
 ## 2. Log Sample – Suspicious Logins
 
-| User | Login Time          | Location (Lat, Lon) | Country | Notes                        |
-| ---- | ------------------- | ------------------- | ------- | ---------------------------- |
-| emma | 2025-07-18 03:20:00 | 43.6532, -79.3832   | Canada  | Usual location               |
-| emma | 2025-07-18 04:20:00 | 40.7128, -74.0060   | USA     | Rapid login from new country |
-| bob  | 2025-07-18 12:30:00 | 31.2304, 121.4737   | China   | Suspicious login location    |
+| User | Login Time (UTC)     | City     | Lat, Lon               | Country | Notes                            |
+|------|----------------------|----------|------------------------|---------|----------------------------------|
+| emma | 2021-07-16 03:00:00  | Toronto  | 43.65107, -79.347015   | Canada  | Unusual login (outside baseline) |
+| emma | 2021-07-16 04:00:00  | Seattle  | 47.6062, -122.3321     | USA     | Rapid return to usual location   |
+| bob  | 2021-07-16 11:00:00  | Beijing  | 39.9042, 116.4074      | China   | Sudden login from new country    |
+| bob  | 2021-07-16 12:00:00  | Chicago  | 41.8781, -87.6298      | USA     | Impossible return time           |
 
-- emma triggered an impossible travel alert (Canada → USA within 1 hour)
-- bob logged in from a region never previously used
-
-![06_impossible_travel]([screenshoots/06_impossible_travel.png](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/screenshots/06_impossible_travel.png))
+![06_impossible_travel](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/screenshots/06_impossible_travel.png)
 
   
 ## 3. Triage Analysis
 
-| Indicator         | Value                           | Notes                               |
-| ----------------- | ------------------------------- | ----------------------------------- |
-| User              | emma                            | Multiple logins from Canada and USA |
-| Time Difference   | 1 hour                          | Impossibly short travel time        |
-| Locations         | Toronto, Canada & New York, USA | Geographically distant              |
-| Login Count Spike | emma: +5 logins in 1 day        | Could indicate account compromise   |
+Upon reviewing the alert, two user accounts—**emma** and **bob**—show clear signs of suspicious behavior.
 
+- **emma** logged in from **Toronto, Canada**, then an hour later from **Seattle, USA**. The geographic distance (~3,300 km) makes this travel physically impossible in that timeframe. This pattern triggered an "impossible travel" detection rule.  
+- **bob** logged in from **Beijing, China**, followed by a return login from **Chicago, USA** within an hour. No previous activity was logged from China, marking it as a **new, unusual location**.
+
+The following table summarizes the key triage indicators:
+
+| Indicator          | Value                     | Notes                                            |
+| ------------------ | ------------------------- | ------------------------------------------------ |
+| User               | emma, bob                 | Both accounts triggered location-based anomalies |
+| Time Difference    | 1 hour                    | Impossibly fast travel between logins            |
+| Locations          | Canada → USA, China → USA | High geographic distance in short time window    |
+| Baseline Deviation | Yes                       | Login cities not seen before for either user     |
+| Login Spike        | emma: 5 logins/day        | Increased activity suggests possible compromise  |
+
+Initial triage confirms both accounts exhibited high-risk behavior patterns: login anomalies across continents within an hour, unrecognized locations, and activity spikes. These match indicators commonly seen in credential theft or VPN/geolocation spoofing attacks.
 
 ## 4. Verdict
 **Is this suspicious login activity? Yes**
