@@ -12,6 +12,7 @@
 ## 1. Alert Summary
 
 **Triggered At:** 2025-07-20
+
 **Note:** The data analyzed is from 2021 logs, used here as sample/historical data for demonstration.
 **Search Logic:**
 
@@ -48,7 +49,7 @@ The dashboard below was used to analyze login patterns across users, time, and g
 - Daily Login Count by User Line Chart  
 - Impossible Travel Logins Table  
 
-![Login Dashboard Panels](./07_full_dashboard.png)
+![Login Dashboard Panels](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/screenshots/07_full_dashboard.png)
 *Splunk dashboard showing unusual login activity*
 
 ## 4. Verdict
