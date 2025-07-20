@@ -32,6 +32,12 @@ Example alert condition: logins from locations not seen before or impossible tra
 | emma | 2025-07-18 04:20:00 | 40.7128, -74.0060   | USA     | Rapid login from new country |
 | bob  | 2025-07-18 12:30:00 | 31.2304, 121.4737   | China   | Suspicious login location    |
 
+- emma triggered an impossible travel alert (Canada → USA within 1 hour)
+- bob logged in from a region never previously used
+
+![06_impossible_travel](screenshoots/06_impossible_travel.png)
+
+  
 ## 3. Triage Analysis
 
 | Indicator         | Value                           | Notes                               |
@@ -41,17 +47,6 @@ Example alert condition: logins from locations not seen before or impossible tra
 | Locations         | Toronto, Canada & New York, USA | Geographically distant              |
 | Login Count Spike | emma: +5 logins in 1 day        | Could indicate account compromise   |
 
-**Visual Dashboard – Login Activity Overview**
-
-The dashboard below was used to analyze login patterns across users, time, and geography. It includes:
-
-- Login Locations Map  
-- Top Login Locations Bar Chart  
-- Daily Login Count by User Line Chart  
-- Impossible Travel Logins Table  
-
-![Login Dashboard Panels](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/screenshots/07_full_dashboard.png)
-*Splunk dashboard showing unusual login activity*
 
 ## 4. Verdict
 **Is this suspicious login activity? Yes**
