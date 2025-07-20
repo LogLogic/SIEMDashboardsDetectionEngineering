@@ -35,7 +35,7 @@ Example alert condition: logins from locations not seen before or impossible tra
 - emma triggered an impossible travel alert (Canada → USA within 1 hour)
 - bob logged in from a region never previously used
 
-![06_impossible_travel](screenshoots/06_impossible_travel.png)
+![06_impossible_travel]([screenshoots/06_impossible_travel.png](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/screenshots/06_impossible_travel.png))
 
   
 ## 3. Triage Analysis
