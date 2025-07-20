@@ -3,19 +3,16 @@
 **Analyst:** Olga Zaytseva  
 **Date:** 2025-07-20  
 **Platform:** Splunk Enterprise  
-**Alert:** Unusual User Login Detection  
-**Severity:** Medium  
-**Description:** Detects logins from unusual locations or rapid logins from geographically distant places indicating potential account compromise.
-
+**Alert:** No alert was configured  
+**Severity:** Medium  (based on observed indicators) 
+**Purpose:** Manual log review to detect potentially suspicious login activity using historical data and geolocation logic.
 ---
 
-## 1. Alert Summary
+## 1. Summary
 
-**Triggered At:** 2025-07-20
+This report presents the results of a manual investigation into user login patterns using historical log data from 2021. Although no automated alert was configured, the review simulated "impossible travel" detection and anomalous geolocation patterns to uncover signs of potential account compromise.
 
-**Note:** The data analyzed is from 2021 logs, used here as sample/historical data for demonstration.
-
-**Search Logic:**
+**Sample SPL Logic**
 
 ```spl
 index=login_data
