@@ -143,4 +143,4 @@ index=login_data
 
 This project includes a simulated SOC-style investigation write-up. The report walks through triage steps, context gathering, and recommended next actions.
 
-[→ View Investigation Report]()
+[→ View Investigation Report](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/investigations/unusual_logins_report.md)
