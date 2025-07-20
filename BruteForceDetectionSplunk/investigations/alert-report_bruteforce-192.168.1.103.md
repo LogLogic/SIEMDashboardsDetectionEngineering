@@ -14,6 +14,7 @@
 **Triggered At:** 07.01.2025 09:00 AM  
 **Search Logic:**
 
+```spl
 index=bruteforce sourcetype=custom_windows_auth
 
 | where like(_raw, "%FAILURE%")
@@ -25,6 +26,7 @@ index=bruteforce sourcetype=custom_windows_auth
 | stats count by _time, src_ip
 
 | where count >= 5
+```
 
 ## Condition Met:
 
