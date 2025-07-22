@@ -1,0 +1,3 @@
+index=login_data
+| where isnotnull(lat) AND isnotnull(lon)
+| geostats latfield=lat longfield=lon count
