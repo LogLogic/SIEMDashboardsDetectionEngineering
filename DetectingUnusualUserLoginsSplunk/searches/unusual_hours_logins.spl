@@ -1,0 +1,4 @@
+index=login_data
+| eval hour=strftime(_time, "%H")
+| where hour < 6 OR hour > 22
+| stats count by user, hour, city, src_ip
