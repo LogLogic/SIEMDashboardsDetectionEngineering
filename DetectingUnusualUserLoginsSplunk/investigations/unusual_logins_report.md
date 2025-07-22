@@ -4,7 +4,7 @@
 **Date:** 2025-07-20  
 **Platform:** Splunk Enterprise  
 **Alert:** No alert was configured  
-**Severity:** Medium  (based on observed indicators)
+**Severity:** Medium (based on observed indicators)  
 **Purpose:** Manual log review to detect potentially suspicious login activity using historical data and geolocation logic.
 
 ---
