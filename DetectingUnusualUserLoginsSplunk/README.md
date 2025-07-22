@@ -50,7 +50,7 @@ Splunk Enterprise (local)
 
 ## Dashboard Panels
 
-1. **Login Locations Map*
+1. **Login Locations Map**
    *Visualizes login counts by geographic coordinates (latitude and longitude) on a map.*
 
 2. **Top login locations**
