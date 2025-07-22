@@ -40,4 +40,4 @@ Identifies suspicious user logins based on geolocation anomalies such as impossi
 - Manual log ingestion of simulated authentication logs
 - SPL queries to detect impossible travel and logins from new countries
 - Dashboard visualizations for IP mapping, login heatmaps, and per-user trends
-- Investigation report detailing timeline reconstruction, indicators, and triage summary
+- Investigation report and triage summary
