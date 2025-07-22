@@ -5,7 +5,6 @@
 **Platform:** Splunk Enterprise  
 **Alert:** No alert was configured  
 **Severity:** Medium  (based on observed indicators)
-
 **Purpose:** Manual log review to detect potentially suspicious login activity using historical data and geolocation logic.
 
 ---
@@ -88,7 +87,7 @@ These criteria were operationalized using SPL queries and visualized on dashboar
 
 ### Observations
 
-- Several users (charlie, grace, harry, irene) exhibited logins from foreign countries (Russia, UK, Australia, India) interspersed with normal US logins. These events represent possible impossible travel scenarios or use of VPN/proxy IPs.
+- Several users (`charlie`, `grace`, `harry`, `irene`) exhibited logins from foreign countries (Russia, UK, Australia, India) interspersed with normal US logins. These events represent possible impossible travel scenarios or use of VPN/proxy IPs.
 - Some foreign logins occurred outside typical business hours, increasing suspicion.
 - Geographic distances between consecutive logins within a few hours for these users suggest account compromise or unauthorized access.
 - These anomalies align with detection criteria from the SPL queries and reinforce the need to investigate a wider set of accounts.
