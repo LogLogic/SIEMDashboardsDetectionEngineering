@@ -1,0 +1,3 @@
+index=login_data
+| stats dc(country) as country_count by user
+| where country_count > 1
