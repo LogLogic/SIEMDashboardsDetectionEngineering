@@ -29,3 +29,15 @@ Detects phishing emails failing SPF, DKIM, and DMARC checks, combined with risk 
 - Scheduled alert for spoofed emails
 - Bar chart dashboards for high-risk senders and attachments
 - Investigation report including full email IOC breakdown
+
+---
+
+### 🌍 Unusual Login Geolocation Analysis (Splunk)  
+📝 [Read the Report](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/UnusualLoginGeoAnalysis/investigations/unusual_logins_report.md)
+
+Identifies suspicious user logins based on geolocation anomalies such as impossible travel, new IPs, and logins at odd hours. Designed for proactive review of historical data. Includes:
+
+- Manual log ingestion of simulated authentication logs
+- SPL queries to detect impossible travel and logins from new countries
+- Dashboard visualizations for IP mapping, login heatmaps, and per-user trends
+- Investigation report detailing timeline reconstruction, indicators, and triage summary
