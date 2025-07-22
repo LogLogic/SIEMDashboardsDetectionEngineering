@@ -1,0 +1,2 @@
+index=login_data
+| timechart span=1d count BY user
