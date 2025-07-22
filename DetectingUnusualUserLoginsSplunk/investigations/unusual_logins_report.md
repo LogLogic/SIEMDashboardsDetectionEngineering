@@ -1,74 +1,116 @@
-# SOC Alert Investigation Report – Detecting Unusual User Logins
+# SOC Investigation Report – Manual Review of Unusual User Logins
 
 **Analyst:** Olga Zaytseva  
 **Date:** 2025-07-20  
 **Platform:** Splunk Enterprise  
 **Alert:** No alert was configured  
-**Severity:** Medium  (based on observed indicators) 
+**Severity:** Medium  (based on observed indicators)
 **Purpose:** Manual log review to detect potentially suspicious login activity using historical data and geolocation logic.
+
 ---
 
 ## 1. Summary
 
-This report presents the results of a manual investigation into user login patterns using historical log data from 2021. Although no automated alert was configured, the review simulated "impossible travel" detection and anomalous geolocation patterns to uncover signs of potential account compromise.
+This investigation analyzes user login activity to detect unusual or suspicious behavior that may indicate credential compromise or unauthorized access. Using Splunk and custom SPL queries, multiple indicators were examined, including logins from multiple countries, logins during unusual hours, new IP addresses, and impossible travel scenarios.
 
-**Sample SPL Logic**
+Several user accounts, including `emma`, `bob`, `charlie`, `grace`, `harry`, and `irene`, demonstrated potentially risky behaviors such as rapid logins from geographically distant locations within short timeframes and logins from unusual countries or at unusual hours. These findings support the suspicion of possible account compromise or unauthorized access.
 
-```spl
-index=login_data
-| where isnotnull(lat) AND isnotnull(lon)
-| geostats latfield=lat longfield=lon count
-```
-Example alert condition: logins from locations not seen before or impossible travel between login events.
+---
 
-## 2. Log Sample – Suspicious Logins
+## 2. Triage Walkthrough
 
-| User | Login Time (UTC)     | City     | Lat, Lon               | Country | Notes                            |
-|------|----------------------|----------|------------------------|---------|----------------------------------|
-| emma | 2021-07-16 03:00:00  | Toronto  | 43.65107, -79.347015   | Canada  | Unusual login (outside baseline) |
-| emma | 2021-07-16 04:00:00  | Seattle  | 47.6062, -122.3321     | USA     | Rapid return to usual location   |
-| bob  | 2021-07-16 11:00:00  | Beijing  | 39.9042, 116.4074      | China   | Sudden login from new country    |
-| bob  | 2021-07-16 12:00:00  | Chicago  | 41.8781, -87.6298      | USA     | Impossible return time           |
+### Step 1: Data Ingestion and Field Validation  
+- Sample login data ingested into Splunk (`login_data` index).  
+- Confirmed fields such as `_time`, `user`, `src_ip`, `city`, `country`, `lat`, and `lon` were correctly extracted.
+
+### Step 2: Initial Search for Multi-Country Logins  
+- Ran SPL query to identify users with logins from multiple countries, indicating potential anomalies.
+
+### Step 3: Detection of Logins Outside Normal Hours  
+- Applied filter for logins occurring before 6 AM or after 10 PM UTC to flag unusual timing.
+
+### Step 4: Identification of New IP Addresses  
+- Queried for first-seen IP addresses per user within the last 24 hours to detect unfamiliar access points.
+
+### Step 5: Impossible Travel Detection  
+- Executed streamstats-based query to identify rapid logins from geographically distant countries occurring within 12 hours, an unlikely physical travel scenario.
+
+### Step 6: Dashboard Analysis and Correlation  
+- Reviewed visual dashboards (login maps, top locations, timecharts) for patterns and spikes supporting suspicious activity.
+
+### Step 7: Risk Prioritization  
+- Prioritized investigation on users exhibiting multiple suspicious indicators, focusing on *emma* and *bob* accounts.
+
+---
+
+## 3. Data Overview
+
+- **Data Source:** Sample login data ingested into a custom Splunk index (`login_data`) from `sample_login_data.csv`.  
+- **Fields:** Timestamp (`_time`), user, source IP, city, country, latitude, and longitude.  
+- **Tooling:** SPL queries leveraging stats, eval, streamstats, and geolocation commands were used to detect anomalies.  
+
+---
+
+## 4. Detection Methodology
+
+The following detection criteria were applied:
+
+- **Multi-country Logins:** Identified users logging in from more than one country.  
+- **Unusual Hours:** Flagged logins occurring outside typical business hours (before 6 AM or after 10 PM UTC).  
+- **New IP Addresses:** Detected logins from IP addresses not seen in the prior 24 hours for a user.  
+- **Impossible Travel:** Detected sequential logins from different countries occurring within 12 hours, which is implausible given geographic distances.
+
+These criteria were operationalized using SPL queries and visualized on dashboards featuring login maps, top locations, timecharts, and impossible travel tables.
+
+---
+
+## 5. Key Findings
+
+| User    | Event Timestamp (UTC) | City          | Country   | Notes                           |
+| ------- | --------------------- | ------------- | --------- | ------------------------------- |
+| emma    | 2021-07-16 03:20:00   | Toronto       | Canada    | Unusual login outside baseline  |
+| emma    | 2021-07-16 04:00:00   | Seattle       | USA       | Rapid return login              |
+| bob     | 2021-07-16 10:40:00   | Beijing       | China     | New country login               |
+| bob     | 2021-07-16 12:00:00   | Chicago       | USA       | Impossibly rapid return         |
+| charlie | 2021-07-17 10:00:00\* | Moscow        | Russia    | Unusual foreign login           |
+| charlie | 2021-07-16 08:00:00   | Los Angeles   | USA       | Normal login location           |
+| grace   | 2021-07-16 22:00:00\* | London        | UK        | New country login late at night |
+| grace   | 2021-07-16 07:00:00   | Denver        | USA       | Normal login location           |
+| harry   | 2021-07-16 18:00:00\* | Sydney        | Australia | New foreign login               |
+| harry   | 2021-07-16 06:00:00   | San Francisco | USA       | Normal login location           |
+| irene   | 2021-07-17 02:00:00\* | New Delhi     | India     | Foreign login late at night     |
+| irene   | 2021-07-16 07:00:00   | Dallas        | USA       | Normal login location           |
+*  *Timestamp approximated based on epoch times in dataset for clarity*
 
 ![06_impossible_travel](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/screenshots/06_impossible_travel.png)
 
-  
-## 3. Triage Analysis
+### Observations
 
-Upon reviewing the alert, two user accounts—**emma** and **bob**—show clear signs of suspicious behavior.
+- Several users (charlie, grace, harry, irene) exhibited logins from foreign countries (Russia, UK, Australia, India) interspersed with normal US logins. These events represent possible impossible travel scenarios or use of VPN/proxy IPs.
+- Some foreign logins occurred outside typical business hours, increasing suspicion.
+- Geographic distances between consecutive logins within a few hours for these users suggest account compromise or unauthorized access.
+- These anomalies align with detection criteria from the SPL queries and reinforce the need to investigate a wider set of accounts.
 
-- **emma** logged in from **Toronto, Canada**, then an hour later from **Seattle, USA**. The geographic distance (~3,300 km) makes this travel physically impossible in that timeframe. This pattern triggered an "impossible travel" detection rule.  
-- **bob** logged in from **Beijing, China**, followed by a return login from **Chicago, USA** within an hour. No previous activity was logged from China, marking it as a **new, unusual location**.
+---
 
-The following table summarizes the key triage indicators:
-
-| Indicator          | Value                     | Notes                                            |
-| ------------------ | ------------------------- | ------------------------------------------------ |
-| User               | emma, bob                 | Both accounts triggered location-based anomalies |
-| Time Difference    | 1 hour                    | Impossibly fast travel between logins            |
-| Locations          | Canada → USA, China → USA | High geographic distance in short time window    |
-| Baseline Deviation | Yes                       | Login cities not seen before for either user     |
-| Login Spike        | emma: 5 logins/day        | Increased activity suggests possible compromise  |
-
-Initial triage confirms both accounts exhibited high-risk behavior patterns: login anomalies across continents within an hour, unrecognized locations, and activity spikes. These match indicators commonly seen in credential theft or VPN/geolocation spoofing attacks.
-
-## 4. Verdict
+## 6. Verdict
 **Is this suspicious login activity? Yes**
 
-Multiple rapid logins from geographically distant locations strongly indicate possible credential compromise.
+The combination of unusual geolocations, impossible travel patterns, and login spikes constitutes strong evidence of suspicious activity consistent with potential account compromise. Immediate follow-up is warranted.
 
-## 5. Recommended Actions
-Investigate flagged user accounts for compromise
+---
 
-Enforce multi-factor authentication for affected users
+## 7. Recommendations
 
-Monitor for additional suspicious login patterns
+- **User Investigation:** Conduct in-depth review of user *emma* and *bob* accounts for signs of compromise.  
+- **Access Controls:** Enforce or verify multi-factor authentication (MFA) for all users.  
+- **Monitoring:** Set up automated alerts for impossible travel and multi-country login patterns.  
+- **User Notification:** Inform affected users of suspicious activity and recommend password resets.  
+- **Incident Response:** Prepare for possible escalation if further suspicious activity is detected.
 
-Notify security operations and affected users
+---
 
-## 6. Lessons Learned
-Geolocation analysis is essential for login anomaly detection
-
-Impossible travel logic is effective for early compromise alerts
-
-Visual dashboards accelerate triage and investigations
+## 8. Lessons Learned
+- Geolocation analysis is essential for login anomaly detection
+- Impossible travel logic is effective for early compromise alerts
+- Visual dashboards accelerate triage and investigations
