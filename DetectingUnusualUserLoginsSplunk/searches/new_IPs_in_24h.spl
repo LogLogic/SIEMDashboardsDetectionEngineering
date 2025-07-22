@@ -1,0 +1,5 @@
+index=login_data
+| stats earliest(_time) as first_seen by user, src_ip
+| where first_seen >= relative_time(strptime("2021-07-17", "%Y-%m-%d"), "-1d@d")
+| eval first_seen_date=strftime(first_seen, "%Y-%m-%d %H:%M:%S")
+| table user, src_ip, first_seen_date
