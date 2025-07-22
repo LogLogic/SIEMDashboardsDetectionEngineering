@@ -1,0 +1,6 @@
+index=login_data
+| where isnotnull(lat) AND isnotnull(lon)
+| eval Location=lat . "," . lon
+| stats count by Location
+| sort -count
+| head 10
