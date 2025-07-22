@@ -80,6 +80,7 @@ These criteria were operationalized using SPL queries and visualized on dashboar
 | harry   | 2021-07-16 06:00:00   | San Francisco | USA       | Normal login location           |
 | irene   | 2021-07-17 02:00:00\* | New Delhi     | India     | Foreign login late at night     |
 | irene   | 2021-07-16 07:00:00   | Dallas        | USA       | Normal login location           |
+
 `*`  *Timestamp approximated based on epoch times in dataset for clarity*
 
 ![06_impossible_travel](https://github.com/LogLogic/SIEMDashboardsDetectionEngineering/blob/main/DetectingUnusualUserLoginsSplunk/screenshots/06_impossible_travel.png)
